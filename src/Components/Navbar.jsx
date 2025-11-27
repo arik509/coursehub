@@ -72,14 +72,14 @@ export default function Navbar() {
                 ))}
                 <div className="mt-2 flex gap-2">
                   <Link
-                    href="/(auth)/login"
+                    href="/auth/login"
                     onClick={() => setOpen(false)}
                     className="btn btn-outline btn-sm flex-1"
                   >
                     Login
                   </Link>
                   <Link
-                    href="/(auth)/register"
+                    href="/auth/register"
                     onClick={() => setOpen(false)}
                     className="btn btn-primary btn-sm flex-1"
                   >
@@ -119,10 +119,10 @@ export default function Navbar() {
 
        
         <div className="navbar-end hidden lg:flex gap-2">
-          <Link href="/(auth)/login" className="btn btn-ghost btn-sm">
+          <Link href="/auth/login" className="btn btn-ghost btn-sm">
             Login
           </Link>
-          <Link href="/(auth)/register" className="btn btn-primary btn-sm">
+          <Link href="/auth/register" className="btn btn-primary btn-sm">
             Sign up
           </Link>
         </div>
