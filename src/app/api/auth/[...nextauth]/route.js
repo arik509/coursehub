@@ -13,7 +13,7 @@ const handler = NextAuth({
       async authorize(credentials) {
         const { email, password } = credentials;
 
-        // Demo only: accept any non-empty values
+        
         if (!email || !password) return null;
 
         return {
@@ -29,7 +29,7 @@ const handler = NextAuth({
     }),
   ],
   pages: {
-    signIn: "/(auth)/login",
+    signIn: "/auth/login",
   },
   session: { strategy: "jwt" },
   callbacks: {

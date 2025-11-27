@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
+import { useSession, signOut } from "next-auth/react";
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -13,14 +14,19 @@ const navLinks = [
 
 export default function Navbar() {
   const pathname = usePathname();
+  const router = useRouter();
   const [open, setOpen] = useState(false);
+  const { data: session } = useSession();
+  const isLoggedIn = !!session?.user;
+
+  const handleLogout = async () => {
+    await signOut({ callbackUrl: "/" });
+  };
 
   return (
     <header className="sticky top-0 z-30 bg-base-100/80 backdrop-blur border-b border-base-200">
       <div className="navbar w-11/12 mx-auto px-4">
-       
         <div className="navbar-start">
-         
           <div className="dropdown">
             <button
               tabIndex={0}
@@ -63,41 +69,64 @@ export default function Navbar() {
                       href={item.href}
                       onClick={() => setOpen(false)}
                       className={
-                        pathname === item.href ? "active text-primary font-semibold" : ""
+                        pathname === item.href
+                          ? "active text-primary font-semibold"
+                          : ""
                       }
                     >
                       {item.name}
                     </Link>
                   </li>
                 ))}
-                <div className="mt-2 flex gap-2">
-                  <Link
-                    href="/auth/login"
-                    onClick={() => setOpen(false)}
-                    className="btn btn-outline btn-sm flex-1"
-                  >
-                    Login
-                  </Link>
-                  <Link
-                    href="/auth/register"
-                    onClick={() => setOpen(false)}
-                    className="btn btn-primary btn-sm flex-1"
-                  >
-                    Sign up
-                  </Link>
+
+                <div className="mt-2 flex flex-col gap-2">
+                  {isLoggedIn ? (
+                    <>
+                      <span className="text-xs text-base-content/70 px-1">
+                        Signed in as{" "}
+                        <span className="font-semibold">
+                          {session.user.name || session.user.email}
+                        </span>
+                      </span>
+                      <button
+                        onClick={() => {
+                          setOpen(false);
+                          handleLogout();
+                        }}
+                        className="btn btn-outline btn-sm w-full"
+                      >
+                        Logout
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <Link
+                        href="/auth/login"
+                        onClick={() => setOpen(false)}
+                        className="btn btn-outline btn-sm flex-1"
+                      >
+                        Login
+                      </Link>
+                      <Link
+                        href="/auth/register"
+                        onClick={() => setOpen(false)}
+                        className="btn btn-primary btn-sm flex-1"
+                      >
+                        Sign up
+                      </Link>
+                    </>
+                  )}
                 </div>
               </ul>
             )}
           </div>
 
-          
           <Link href="/" className="btn btn-ghost normal-case text-xl">
             <span className="font-extrabold text-primary">Course</span>
             <span className="font-extrabold text-base-content">Hub</span>
           </Link>
         </div>
 
-       
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1 gap-1">
             {navLinks.map((item) => (
@@ -117,14 +146,27 @@ export default function Navbar() {
           </ul>
         </div>
 
-       
-        <div className="navbar-end hidden lg:flex gap-2">
-          <Link href="/auth/login" className="btn btn-ghost btn-sm">
-            Login
-          </Link>
-          <Link href="/auth/register" className="btn btn-primary btn-sm">
-            Sign up
-          </Link>
+        <div className="navbar-end hidden lg:flex gap-3 items-center">
+          {isLoggedIn && (
+            <span className="text-xs md:text-sm text-base-content/70">
+              {session.user.name || session.user.email}
+            </span>
+          )}
+
+          {isLoggedIn ? (
+            <button onClick={handleLogout} className="btn btn-ghost btn-sm">
+              Logout
+            </button>
+          ) : (
+            <>
+              <Link href="/auth/login" className="btn btn-ghost btn-sm">
+                Login
+              </Link>
+              <Link href="/auth/register" className="btn btn-primary btn-sm">
+                Sign up
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </header>
