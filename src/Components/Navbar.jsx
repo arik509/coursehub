@@ -55,7 +55,7 @@ export default function Navbar() {
             {open && (
               <ul
                 tabIndex={-1}
-                className="menu menu-sm dropdown-content mt-3 z-[1] w-52 p-2 shadow bg-base-100 rounded-box"
+                className="menu menu-sm dropdown-content mt-3 z-1 w-52 p-2 shadow bg-base-100 rounded-box"
               >
                 {navLinks.map((item) => (
                   <li key={item.href}>
