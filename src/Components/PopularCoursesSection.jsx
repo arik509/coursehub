@@ -40,10 +40,10 @@ const popularCourses = [
             {popularCourses.map((course, idx) => (
               <div
                 key={course.title}
-                className="card shadow-sm border border-base-200 hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-indigo-50 via-sky-50 to-emerald-50 text-base-content"
+                className="card shadow-sm border border-base-200 hover:shadow-xl transition-all duration-300 bg-linear-to-br from-indigo-50 via-sky-50 to-emerald-50 text-base-content"
               >
                 <div className="card-body">
-                  <span className="badge badge-sm border-0 bg-gradient-to-r from-indigo-500/90 to-sky-400/90 text-xs text-white w-fit mb-3">
+                  <span className="badge badge-sm border-0 bg-linear-to-r from-indigo-500/90 to-sky-400/90 text-xs text-white w-fit mb-3">
                     Top #{idx + 1}
                   </span>
                   <h3 className="card-title text-base md:text-lg text-slate-900">
