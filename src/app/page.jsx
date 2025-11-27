@@ -1,3 +1,4 @@
+import BannerSection from "@/Components/CTA/BannerSection";
 import FeaturesSection from "@/Components/FeaturesSection";
 import HeroSection from "@/Components/HeroSection";
 import PopularCoursesSection from "@/Components/PopularCoursesSection";
@@ -12,6 +13,7 @@ export default function Home() {
       <FeaturesSection></FeaturesSection>
       <PopularCoursesSection></PopularCoursesSection>
       <TestimonialsSection></TestimonialsSection>
+      <BannerSection></BannerSection>
     </div>
    </main>
   );
