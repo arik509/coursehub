@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "../components/Navbar";
 // import Footer from "../components/Footer";
 import Providers from "../components/Providers";
+import Footer from "@/Components/Footer";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({
@@ -28,6 +29,7 @@ export default function RootLayout({ children }) {
           >
             {children}
           </body>
+          <Footer></Footer>
           
         </Providers>
       </body>

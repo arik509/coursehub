@@ -1,6 +1,7 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
+import { getUsers } from "../../register/route"; 
 
 const handler = NextAuth({
   providers: [
@@ -11,15 +12,21 @@ const handler = NextAuth({
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        const { email, password } = credentials;
+        const { email, password } = credentials || {};
 
-        
         if (!email || !password) return null;
 
+        const users = getUsers();
+        const user = users.find(
+          (u) => u.email === email && u.password === password
+        );
+
+        if (!user) return null;
+
         return {
-          id: "user-1",
-          name: "Demo User",
-          email,
+          id: user.id,
+          name: user.name,   
+          email: user.email,
         };
       },
     }),

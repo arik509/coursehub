@@ -5,7 +5,6 @@ export async function middleware(request) {
   const { pathname } = request.nextUrl;
 
   const protectedPaths = ["/add-course", "/manage-courses"];
-
   const isProtected = protectedPaths.some((path) =>
     pathname.startsWith(path)
   );
@@ -17,7 +16,7 @@ export async function middleware(request) {
   const token = await getToken({ req: request });
 
   if (!token) {
-    const loginUrl = new URL("/(auth)/login", request.url);
+    const loginUrl = new URL("/auth/login", request.url);
     loginUrl.searchParams.set("callbackUrl", pathname);
     return NextResponse.redirect(loginUrl);
   }

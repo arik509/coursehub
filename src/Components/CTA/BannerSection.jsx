@@ -16,7 +16,7 @@ export default function BannerSection() {
               </p>
             </div>
             <div className="flex gap-3">
-              <Link href="/(auth)/register" className="btn btn-primary bg-white text-primary border-0">
+              <Link href="/courses" className="btn btn-primary bg-white text-primary border-0">
                 Get started free
               </Link>
               <Link href="/courses" className="btn btn-outline border-base-200">
